@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+<h1 th:text="${title}">ユーザー登録</h1>
+
+<form method="post" action="#" th:action="@{/userMaster/UserTourokuKakunin}" th:object="${userForm}">
+    <label for="name">お名前:</label>
+    <input id="name" name="name" type="text" th:value="*{name}"><br>
+	<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+
+    <label for="age">年齢:</label>
+    <input id="age" name="age" type="text" th:value="*{age}"><br>
+	<div th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+
+    <label for="sex">性別:</label>
+    <input id="sex" name="sex" type="text" th:value="*{sex}"><br>
+	<div th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></div>
+
+	<label>期限：</label>
+	<input type="datetime-local" name="birthDay" th:value="*{birthDay}" /><br>
+
+	<label for="contents">自己PR　:</label>
+	<textarea name="contents" id="contents" rows="3" cols="40" th:field="*{contents}"></textarea><br>
+	<div th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}"></div>
+	<input type="submit" value="確認ページへ">
+</form>
+
+
+</body>
+</html>
