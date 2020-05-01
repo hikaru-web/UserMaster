@@ -5,9 +5,9 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
-<h1 th:text="${title}">ユーザー登録</h1>
+<h1 th:text="${title}">登録情報の編集</h1>
 
-<form method="post" action="#" th:action="@{/UserTourokuKakunin}" th:object="${userForm}">
+<form method="post" action="#" th:action="@{/UpdateConfirm}" th:object="${userForm}">
     <label for="UserName">お名前:</label>
     <input id="UserName" name="UserName" type="text" th:value="*{UserName}"><br>
 	<div th:if="${#fields.hasErrors('UserName')}" th:errors="*{UserName}"></div>

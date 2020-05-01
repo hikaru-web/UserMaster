@@ -9,23 +9,25 @@
 <p>入力内容をご確認ください</p>
 
 <div th:object="${userForm}">
-	<P th:text="*{name}"></P>
-	<P th:text="*{age}"></P>
-	<P th:text="*{birthDay}"></P>
+	<P th:text="*{UserName}"></P>
+	<P th:text="*{UserAge}"></P>
+	<P th:text="*{UserBirthDay}"></P>
 	<P th:text="*{contents}"></P>
 	<form method="post" action="#" th:action="@{/UserTouroku}">
-		<input type="hidden" name="name" th:value="*{name}">
-		<input type="hidden" name="age" th:value="*{age}">
-		<input type="hidden" name="birthDay" th:value="*{birthDay}">
+		<input type="hidden" name="UserName" th:value="*{UserName}">
+		<input type="hidden" name="UserAge" th:value="*{UserAge}">
+		<input type="hidden" name="UserSex" th:value="*{UserSex}">
+		<input type="hidden" name="UserBirthDay" th:value="*{UserBirthDay}">
 		<input type="hidden" name="contents" th:value="*{contents}">
 		<input type="submit" value="戻る">
 	</form>
 	<form method="post" action="#" th:action="@{/complete}">
-		<input type="hidden" name="name" th:value="*{name}">
-		<input type="hidden" name="age" th:value="*{age}">
-		<input type="hidden" name="birthDay" th:value="*{birthDay}">
+		<input type="hidden" name="UserName" th:value="*{UserName}">
+		<input type="hidden" name="UserAge" th:value="*{UserAge}">
+		<input type="hidden" name="UserSex" th:value="*{UserSex}">
+		<input type="hidden" name="UserBirthDay" th:value="*{UserBirthDay}">
 		<input type="hidden" name="contents" th:value="*{contents}">
-		<input type="submit" value="Complete">
+		<input type="submit" value="complete">
 	</form>
 </div>
 

@@ -2,33 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
 <h1 th:text="${title}">ユーザー登録</h1>
 
 <form method="post" action="#" th:action="@{/UserTourokuKakunin}" th:object="${userForm}">
-    <label for="name">お名前:</label>
-    <input id="name" name="name" type="text" th:value="*{name}"><br>
-	<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <label for="UserName">お名前:</label>
+    <input id="UserName" name="UserName" type="text" th:value="*{UserName}"><br>
+	<div th:if="${#fields.hasErrors('UserName')}" th:errors="*{UserName}"></div>
 
-    <label for="age">年齢:</label>
-    <input id="age" name="age" type="text" th:value="*{age}"><br>
-	<div th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
-
-    <label for="sex">性別:</label>
-    男性<input type="radio" name="sex"  th:value="*{sex}">
-    女性<input type="radio" name="sex"  th:value="*{sex}"><br>
-	<div th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></div>
+    <label for="UserAge">年齢:</label>
+    <input id="UserAge" name="UserAge" type="text" th:value="*{UserAge}"><br>
+	<div th:if="${#fields.hasErrors('UserAge')}" th:errors="*{UserAge}"></div>
 
 	<label>生年月日：</label>
-	<input type="date" name="birthDay" th:value="*{birthDay}" /><br>
+	<input type="date" name="UserBirthDay" th:value="*{UserBirthDay}" /><br>
+	<div th:if="${#fields.hasErrors('UserBirthDay')}" th:errors="*{UserBirthDay}"></div>
 
 	<label for="contents">自己PR　:</label>
 	<textarea name="contents" id="contents" rows="3" cols="40" th:field="*{contents}"></textarea><br>
 	<div th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}"></div>
-	<input type="submit" value="確認ページへ">
+	<button type="submit" class="btn btn-primary">確認する</button>
 </form>
 
+<p><a href="#" th:href="@{/}">戻る</a></p>
 
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="js/jquery-3.5.0.slim.min.js"></script>
+<script src="js/bootstrap.bundle.min.js" ></script>
 </body>
 </html>
