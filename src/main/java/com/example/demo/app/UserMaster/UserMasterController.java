@@ -2,13 +2,14 @@ package com.example.demo.app.UserMaster;
 
 import java.sql.Timestamp;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.domain.User;
+import com.example.demo.helper.PagenationHelper;
 import com.example.demo.service.UserService;
 
 @Controller
@@ -35,15 +37,36 @@ public class UserMasterController{
 		this.userService = userService;
 	}
 
-	//ユーザー一覧
+	/**
+	 * 初期画面。ユーザー一覧と登録ボタンを表示する。
+	 * @param model
+	 * @param userForm
+	 * @return
+	 */
 	@GetMapping
-	public String index(Model model,UserForm userForm) {
-		List<User> list = userService.findAll();
-		model.addAttribute("list", list);
+	public String index(Model model,
+			UserForm userForm,
+			Pageable pageable) {
+
+		userForm.setSize(pageable.getPageSize());
+		userForm.setPage(pageable.getPageNumber());
+
+		Page<User> page = userService.findAll(userForm,pageable);
+		PagenationHelper ph = new PagenationHelper(page.getNumber(), page.getSize(), page.getTotalPages());
+
+		model.addAttribute("page", page);
+		model.addAttribute("ph", ph);
 		model.addAttribute("title", "ユーザー一覧");
 		return "/index";
 	}
 
+	/**
+	 *初期画面から登録画面へ遷移
+	 * @param userForm
+	 * @param model
+	 * @param complete
+	 * @return
+	 */
 	@GetMapping("/UserTouroku")
 	public String UserTouroku(UserForm userForm,
 			Model model,
@@ -53,6 +76,12 @@ public class UserMasterController{
 		return "UserMaster/UserTouroku";
 	}
 
+	/**【登録画面】
+	 * 戻るボタンを押したときに登録画面へ遷移する。
+	 * @param userForm
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/UserTouroku")
 	public String UserTourokuBack(UserForm userForm,
 			Model model) {
@@ -60,16 +89,23 @@ public class UserMasterController{
 		return "UserMaster/UserTouroku";
 	}
 
+	/**【登録確認画面】
+	 * 入力情報をValidateし、確認画面へ遷移させる。
+	 * @param userForm
+	 * @param results
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/UserTourokuKakunin")
 	public String UserTourokuConfirm(@Validated UserForm userForm,
 					BindingResult results,
 					Model model) {
 
 		//同じ名前のユーザーが登録されていたらエラー
-		if (userService.findOneByName(userForm.getUserName()) !=null) {
-			model.addAttribute("title","同名のユーザーが存在します");
-			return"userMaster/UserTouroku";
-		}
+//		if (userService.findOneByName(userForm.getUserName()) !=null) {
+//			model.addAttribute("title","同名のユーザーが存在します");
+//			return"userMaster/UserTouroku";
+//		}
 
 		if (results.hasErrors()) {
 			model.addAttribute("title","エラーだ！");
@@ -81,6 +117,14 @@ public class UserMasterController{
 
 	}
 
+	/**
+	 * 入力情報を登録する
+	 * @param userForm
+	 * @param result
+	 * @param model
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@PostMapping("/complete")
 	public String complete(@Validated UserForm userForm,
 			BindingResult result,
@@ -101,13 +145,14 @@ public class UserMasterController{
 		user.setContents(userForm.getContents());
 		user.setUserSex(userForm.getUserSex());
 		user.setUserBirthDay(userForm.getUserBirthDay());
+		user.setContents(userForm.getContents());
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		user.setCreateTime(timestamp);
 
 		userService.save(user);
 
 		//redirect
-		/*addFlashAttribute()はリクエストを隔ててデータを保管する仕組みであるセッション
+		/*addFlashAttribute()はセッション(=リクエストを隔ててデータを保管する仕組み)
 		という機能を内部的に使用している*/
 		//model.addAttributeを使ってもデータを渡せないので注意！
 		//このregistered!が一回表示されると、セッションのデータが破棄される（＝フラッシュスコープ）
@@ -117,11 +162,47 @@ public class UserMasterController{
 		return "redirect:/UserMaster/UserTouroku";
 	}
 
+	/**
+	 * 明細画面を表示する。
+	 * @param userForm
+	 * @param UserId
+	 * @param result
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/details/{UserId}")
+	public String showDetails(
+			@ModelAttribute UserForm userForm,
+			@PathVariable Long UserId,
+			BindingResult result,
+			Model model) {
+
+		if (result.hasErrors()) {
+			return "/index";
+		}
+
+    	Optional<User> userOpt = userService.findOne(UserId);
+    	Optional<UserForm> userFormOpt = userOpt.map(t ->makeUserForm(t));
+
+    	if (userFormOpt.isPresent()) {
+			userForm = userFormOpt.get();
+		} else {
+
+			return "/index";
+		}
+
+    	model.addAttribute("userForm", userForm);
+
+    	return "UserMaster/UserSyousai";
+
+
+	}
+
     /**
-     * UserIdを取得し、一件のデータ更新
-     * @param taskForm
-     * @param result
-     * @param id
+     * UserIdに紐づく登録情報を取得し、編集可能な状態で表示する。
+     * @param userForm
+     * @param
+     * @param Userid
      * @param model
      * @param redirectAttributes
      * @return
@@ -168,29 +249,26 @@ public class UserMasterController{
     	@Valid @ModelAttribute UserForm userForm,
     	BindingResult result,
     	//Postでhiddenで渡されてきたものはRequestParamで受け取る
-    	@RequestParam("UserId") int UserId,
+    	@RequestParam("UserId") int userId,
     	Model model,
     	RedirectAttributes redirectAttributes) {
 
-    	//TaskFormのデータをTaskに格納
-//    	User user = makeUser(userForm, UserId);
+    	//UserFormのデータをUserに格納
+    	User user = makeUser(userForm, userId);
 
         if (!result.hasErrors()) {
 
         	//更新処理、フラッシュスコープの使用、リダイレクト（個々の編集ページ）
 
-//        	taskService.update(task);
+        	userService.update(user);
 
         	redirectAttributes.addFlashAttribute("complete","変更が完了しました");
-//        	return "redirect:/task/" + userId;
-        	return "redirect:/task/";
+        	return "redirect:/";
 
         } else {
-//            model.addAttribute("taskForm", taskForm);
-            model.addAttribute("title", "タスク一覧");
-            return "task/index";
+            model.addAttribute("title", "エラーが発生しました。");
+            return "/index";
         }
-
 
     }
 
@@ -202,28 +280,31 @@ public class UserMasterController{
 	}
 
     /**
-     * UserのデータをTaskに入れて返す
-     * @param taskForm
-     * @param taskId 新規登録の場合は0を指定
+     * UserFormのデータをUserに入れて返す
+     * @param userForm
+     * @param userId 新規登録の場合は0を指定
      * @return
      */
-    private User makeUser(UserForm userForm, Long UserId) {
+    private User makeUser(UserForm userForm, int userId) {
         User user = new User();
-        if(UserId != 0) {
-        	user.setUserId(UserId);
-        }
-//        user.setUserId(1L);
-//        user.setEditTime(editTime);
-//        user.set
-//        user.setDetail(taskForm.getDetail());
-//        user.setDeadline(taskForm.getDeadline());
+        user.setUserId(userId);
+        user.setUserAge(Long.parseLong(userForm.getUserAge()));
+        user.setUserName(userForm.getUserName());
+        user.setUserBirthDay(userForm.getUserBirthDay());
+        user.setContents(userForm.getContents());
         return user;
     }
 
+	/**
+	 * UserのデータをUserFormに入れて返す
+	 * @param user
+	 * @return userForm
+	 */
 	private UserForm makeUserForm(User user) {
 
 		UserForm userForm = new UserForm();
 
+		userForm.setUserId(user.getUserId());
 		userForm.setUserName(user.getUserName());
 		userForm.setUserAge(user.getUserAge().toString());
 		userForm.setUserBirthDay(user.getUserBirthDay());

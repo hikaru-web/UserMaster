@@ -12,7 +12,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
+import com.example.demo.app.UserMaster.UserForm;
 import com.example.demo.domain.User;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.service.UserService;
@@ -25,20 +28,27 @@ class UserServiceUnitTest {
 	@Mock
 	private UserMapper userMapper;
 
+	@Mock
+	private Pageable pageable;
+
 	@InjectMocks
 	private UserService userService;
+
+
 
 	@Test
 	@DisplayName("テーブルuserの全件取得で0件の場合のテスト")
 	void testFindAllReturnEmptyList() {
-		List<User> list = new ArrayList<>();
-		when(userService.findAll()).thenReturn(list);
+		Page<User> user = null;
+		UserForm userForm = null;
 
-		List<User> actrualList = userService.findAll();
+		when(userService.findAll(userForm,pageable)).thenReturn(user);
 
-		verify(userMapper,times(1)).findAll();
+		Page<User> actrualList = userService.findAll(userForm,pageable);
 
-		assertEquals(0, actrualList.size());
+		verify(userMapper,times(1)).findAll(userForm);
+
+		assertEquals(0, actrualList.getSize());
 	}
 
 	@Test
@@ -47,20 +57,21 @@ class UserServiceUnitTest {
 
 		//モックから返すリストに一つのUserオブジェクトをセット
 		List<User> list = new ArrayList<>();
+		UserForm userForm = null;
 		User user1 = new User();
 		list.add(user1);
 
 		//「userMapperがfindAll(全件取得)したら、User型のListが返ってくるはずだ」
-		when(userMapper.findAll()).thenReturn(list);
+		when(userMapper.findAll(userForm)).thenReturn(list);
 
 		// 実際に全件取得してactualListにつめる
-		List<User> actualList = userService.findAll();
+		Page<User> actualList = userService.findAll(userForm,pageable);
 
 		//userMapperのfindAllは1回だけ実行されるはずだ
-		verify(userMapper,times(1)).findAll();
+		verify(userMapper,times(1)).findAll(userForm);
 
 		//取得される件数は一件のはずだ
-		assertEquals(1, actualList.size());
+		assertEquals(1, actualList.getSize());
 	}
 
 

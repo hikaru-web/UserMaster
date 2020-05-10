@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1 th:text="${title}">title</h1>
-<p><a href="#" th:href="@{/UserTouroku}">登録</a></p>
+<p><a href="#" th:href="@{/UserTouroku}" class="btn btn-primary">ユーザーを登録する</a></p>
 </body>
 
     <div th:replace="~{block/header_boot::headerA_boot}"></div>
@@ -23,15 +23,16 @@
       </div>
 <table class="table">
 	 <thead class="thead-dark">
-		<tr><td>ID</td><td>名前</td>	<td>年齢</td><td>誕生日</td><td></td></tr>
+		<tr><td>ID</td><td>名前</td>	<td>年齢</td><td>誕生日</td><td></td><td></td></tr>
 	</thead>
-	<tr th:each="obj : ${list}">
+	<tr th:each="obj : ${page.content}">
 		<td th:text=${obj.UserId}></td>
 		<td th:text=${obj.UserName}></td>
 		<td th:text=${obj.UserAge}></td>
 		<td th:text=${obj.UserBirthDay}></td>
 														<!--リンク先の{id}は後から値を書き換えられる  -->
 														<!-- 置き換える値は(id=置き換える値)で指定 -->
+		<td><a type="button" th:href="@{/details/{UserId}(UserId=${obj.UserId})}">明細</a></td>
 		<td><a type="button" th:href="@{/{UserId}(UserId=${obj.UserId})}">編集</a></td>
 	</tr>
 </table>
@@ -49,9 +50,59 @@
   </ul>
 </nav>
 
+    <nav aria-label="Page navigation">
+    <div class="pagination justify-content-center">
+        <ul class="pagination">
+            <li th:attr="style=${ph.hiddenPrev} ? 'visibility:hidden'"><a class="js-pagenation" th:href="@{${url}(page=${page.number - 1},size=${page.size})}">&#171;</a></li>
+            <li th:class="${ph.activePage1} ? 'active'">
+                <a class="js-pagenation" th:href="@{${url}(page=${ph.page1PageValue},size=${page.size})}" th:text="${ph.page1PageValue + 1}">1</a>
+            </li>
+            <li th:class="${ph.activePage2} ? 'active'" th:attr="style=${ph.hiddenPage2} ? 'visibility:hidden'">
+                <a class="js-pagenation" th:href="@{${url}(page=${ph.page1PageValue + 1},size=${page.size})}" th:text="${ph.page1PageValue + 2}">2</a>
+            </li>
+            <li th:class="${ph.activePage3} ? 'active'" th:attr="style=${ph.hiddenPage3} ? 'visibility:hidden'">
+                <a class="js-pagenation" th:href="@{${url}(page=${ph.page1PageValue + 2},size=${page.size})}" th:text="${ph.page1PageValue + 3}">3</a>
+            </li>
+            <li th:class="${ph.activePage4} ? 'active'" th:attr="style=${ph.hiddenPage4} ? 'visibility:hidden'">
+                <a class="js-pagenation" th:href="@{${url}(page=${ph.page1PageValue + 3},size=${page.size})}" th:text="${ph.page1PageValue + 4}">4</a>
+            </li>
+            <li th:class="${ph.activePage5} ? 'active'" th:attr="style=${ph.hiddenPage5} ? 'visibility:hidden'">
+                <a class="js-pagenation" th:href="@{${url}(page=${ph.page1PageValue + 4},size=${page.size})}" th:text="${ph.page1PageValue + 5}">4</a>
+            </li>
+        </ul>
+
+        <ul class="pagination">
+            <li th:attr="style=${ph.hiddenNext} ? 'visibility:hidden'"><a class="js-pagenation" th:href="@{${url}(page=${page.number + 1},size=${page.size})}">&#187;</a></li>
+        </ul>
+        </div>
+    </nav>
+
     </main><!-- /.container -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="js/jquery-3.5.0.slim.min.js"></script>
 <script src="js/bootstrap.bundle.min.js" ></script>
+
+    <script type="text/javascript">
+    <!--
+    $(document).ready(function() {
+        $('#code').focus();
+
+        $('.js-searchForm-clear').click(function(){
+            $('#searchForm')
+                .find('input')
+                .val('');
+            $('#code').focus();
+        });
+
+        $('.js-pagenation').each(function(){
+            $(this).click(function(){
+                $('#pagenationForm').attr('action', $(this).attr('href'));
+                $(this).attr('href', '#');
+                $('#pagenationForm').submit();
+            });
+        });
+    });
+    -->
+    </script>
 
 </html>

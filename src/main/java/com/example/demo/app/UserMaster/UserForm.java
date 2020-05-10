@@ -9,10 +9,11 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 public class UserForm {
 
-	public Long UserId;
-	@Size(min = 1, max = 20, message="Please input 20 characters or less")
+	public int UserId;
+	@Size(min = 1, max = 20, message="１字以上20字以下で入力してください。")
 	public String UserName;
 	@NotNull
+	@Size(max=200,message="200字以下で入力してください。")
 	public String contents;
 	@NotNull(message="誕生日を入力してください")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -23,11 +24,15 @@ public class UserForm {
 	public String UserSex;
 	public String selectedRadio;
 
+	//ページネーション用
+    private long page;
+    private long size;
+
 	//コンストラクタ
 	public UserForm() {};
 
 	//引数ありのコンストラクタ
-	public UserForm(Long UserId,
+	public UserForm(int UserId,
 			String UserName,
 			String contents,
 			LocalDate UserBirthDay,
@@ -41,11 +46,11 @@ public class UserForm {
 		this.selectedRadio = selectedRadio;
 	}
 
-	public Long getUserId() {
+	public int getUserId() {
 		return UserId;
 	}
 
-	public void setUserId(Long userId) {
+	public void setUserId(int userId) {
 		UserId = userId;
 	}
 
@@ -95,6 +100,22 @@ public class UserForm {
 
 	public void setSelectedRadio(String selectedRadio) {
 		this.selectedRadio = selectedRadio;
+	}
+
+	public long getPage() {
+		return page;
+	}
+
+	public void setPage(long page) {
+		this.page = page;
+	}
+
+	public long getSize() {
+		return size;
+	}
+
+	public void setSize(long size) {
+		this.size = size;
 	}
 
 }

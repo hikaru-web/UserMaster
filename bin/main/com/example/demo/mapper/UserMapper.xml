@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.UserMapper">
+
    <select id="findAll" resultType="com.example.demo.domain.User">
-      select * from user
+      select *
+      	from user
+      		order by user.UserId
+        <if test="userForm.size != null and userForm != null">
+            limit ${userForm.page * userForm.size}, ${userForm.size}
+        </if>
    </select>
+
    <select id="findOne" resultType="com.example.demo.domain.User">
       select * from user where UserId = #{UserId}
    </select>
+
    <select id="findOneByName" resultType="com.example.demo.domain.User">
       select * from user where UserName = #{UserName}
    </select>
+
    <insert id="save" useGeneratedKeys="true" keyProperty="UserId">
-     insert into user (UserName, UserAge, UserSex,UserBirthDay,CreateTime) values (#{UserName}, #{UserAge}, #{UserSex},#{UserBirthDay},#{createTime})
+     insert into user (UserName, UserAge, UserSex,UserBirthDay,Contents,CreateTime) values (#{UserName}, #{UserAge}, #{UserSex},#{UserBirthDay},#{contents},#{createTime})
    </insert>
+
    <update id="update">
-     update user set UserName = #{UserName}, UserAge = #{UserAge}, UserSex = #{UserSex},EditTime=#{editTime} where id = #{id}
+     update user
+     	set UserName = #{UserName}, UserAge = #{UserAge},EditTime=#{editTime},Contents=#{contents}
+     		where UserId = #{UserId}
    </update>
+
    <delete id="delete">
      delete from user where UserId = #{userId}
    </delete>
+
+    <select id="selectUserCount" resultType="long">
+        select  count(*)   from  user
+    </select>
+
 </mapper>

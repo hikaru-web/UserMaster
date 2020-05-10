@@ -23,6 +23,9 @@
 	<label for="contents">自己PR　:</label>
 	<textarea name="contents" id="contents" rows="3" cols="40" th:field="*{contents}"></textarea><br>
 	<div th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}"></div>
+
+	<input   th:if="${UserId}" type="hidden" name="UserId" th:value="${UserId}">
+
 	<button type="submit" class="btn btn-primary">確認する</button>
 </form>
 

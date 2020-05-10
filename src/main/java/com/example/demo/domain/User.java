@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class User {
-	private Long UserId;
+	private int UserId;
 	private String UserName;
 	private Long UserAge;
 	private String UserSex;
@@ -14,10 +14,10 @@ public class User {
 	private Timestamp EditTime;
 
 
-	public Long getUserId() {
+	public int getUserId() {
 		return UserId;
 	}
-	public void setUserId(Long userId) {
+	public void setUserId(int userId) {
 		UserId = userId;
 	}
 	public String getUserName() {
