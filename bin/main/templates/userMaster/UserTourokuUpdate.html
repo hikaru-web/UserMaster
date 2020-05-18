@@ -3,8 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/bootstrap.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
 </head>
 <body>
+   <div th:replace="~{block/header_boot::headerA_boot}"></div>
+    <main role="main" class="container">
 <h1 th:text="${title}">登録情報の編集</h1>
 
 <form method="post" action="#" th:action="@{/UpdateConfirm}" th:object="${userForm}">
@@ -30,7 +36,7 @@
 </form>
 
 <p><a href="#" th:href="@{/}">戻る</a></p>
-
+</main>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="js/jquery-3.5.0.slim.min.js"></script>
 <script src="js/bootstrap.bundle.min.js" ></script>
