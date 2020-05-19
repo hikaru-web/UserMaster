@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+<h1 th:text="${title}">ユーザー登録</h1>
+
+<p>入力内容をご確認ください</p>
+
+<div th:object="${userForm}">
+	<P th:text="*{UserName}"></P>
+	<P th:text="*{UserAge}"></P>
+	<P th:text="*{UserBirthDay}"></P>
+	<P th:text="*{contents}"></P>
+	<form method="post" action="#" th:action="@{/UserTouroku}">
+		<input type="hidden" name="UserName" th:value="*{UserName}">
+		<input type="hidden" name="UserAge" th:value="*{UserAge}">
+		<input type="hidden" name="UserSex" th:value="*{UserSex}">
+		<input type="hidden" name="UserBirthDay" th:value="*{UserBirthDay}">
+		<input type="hidden" name="contents" th:value="*{contents}">
+		<input type="submit" value="戻る">
+	</form>
+	<form method="post" action="#" th:action="@{/complete}">
+		<input type="hidden" name="UserName" th:value="*{UserName}">
+		<input type="hidden" name="UserAge" th:value="*{UserAge}">
+		<input type="hidden" name="UserSex" th:value="*{UserSex}">
+		<input type="hidden" name="UserBirthDay" th:value="*{UserBirthDay}">
+		<input type="hidden" name="contents" th:value="*{contents}">
+		<input type="submit" value="complete">
+	</form>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+<h1 th:text="${title}">ユーザー登録</h1>
+
+<div th:object="${userForm}">
+	<P th:text="*{UserName}"></P>
+	<P th:text="*{UserAge}"></P>
+	<P th:text="*{UserBirthDay}"></P>
+	<P th:text="*{contents}"></P>
+	<form method="post" action="#" th:action="@{/update/{UserId}(UserId=${UserId})}">
+		<input type="hidden" name="UserId" th:value="*{UserId}">
+		<input type="hidden" name="UserName" th:value="*{UserName}">
+		<input type="hidden" name="UserAge" th:value="*{UserAge}">
+		<input type="hidden" name="UserSex" th:value="*{UserSex}">
+		<input type="hidden" name="UserBirthDay" th:value="*{UserBirthDay}">
+		<input type="hidden" name="contents" th:value="*{contents}">
+		<input type="submit" value="編集する">
+	</form>
+</div>
+
+<p><a href="#" class="btn btn-link" th:href="@{/}">戻る</a></p>
+
+</body>
+</html>

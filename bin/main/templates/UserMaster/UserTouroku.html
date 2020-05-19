@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+</head>
+<body>
+   <div th:replace="~{block/header_boot::headerA_boot}"></div>
+    <main role="main" class="container">
+
+<h1 th:text="${title}">ユーザー登録</h1>
+<br>
+ <div class="center-block">
+<form method="post" action="#" th:action="@{/UserTourokuKakunin}" th:object="${userForm}">
+	<div class="form-group">
+	    <label for="UserName">お名前:</label><br>
+	    <input id="UserName"  placeholder="田中太郎" name="UserName" type="text" th:value="*{UserName}"><br>
+		<div th:if="${#fields.hasErrors('UserName')}" th:errors="*{UserName}"></div>
+	</div>
+	<div class="form-group">
+	    <label for="UserAge">年齢:</label><br>
+	    <input id="UserAge"  placeholder="18" name="UserAge" type="text" th:value="*{UserAge}"><br>
+		<div th:if="${#fields.hasErrors('UserAge')}" th:errors="*{UserAge}"></div>
+	</div>
+	<label>生年月日：</label><br>
+	<input type="date" name="UserBirthDay" th:value="*{UserBirthDay}" /><br>
+	<div th:if="${#fields.hasErrors('UserBirthDay')}" th:errors="*{UserBirthDay}"></div><br>
+
+	<label for="contents">自己PR　:</label><br>
+	<textarea name="contents" id="contents" rows="3" cols="40" th:field="*{contents}"></textarea><br>
+	<div th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}"></div>
+	<button type="submit" class="btn btn-primary">確認する</button>
+
+</form>
+<p><a href="#" th:href="@{/}">戻る</a></p>
+
+</div>
+</main><!-- /.container -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="js/jquery-3.5.0.slim.min.js"></script>
+<script src="js/bootstrap.bundle.min.js" ></script>
+</body>
+</html>
