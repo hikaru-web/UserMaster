@@ -11,7 +11,7 @@
 	<P th:text="*{UserAge}"></P>
 	<P th:text="*{UserBirthDay}"></P>
 	<P th:text="*{contents}"></P>
-	<form method="post" action="#" th:action="@{/{UserId}}">
+	<form method="post" action="#" th:action="@{/update/{UserId}(UserId=${UserId})}">
 		<input type="hidden" name="UserId" th:value="*{UserId}">
 		<input type="hidden" name="UserName" th:value="*{UserName}">
 		<input type="hidden" name="UserAge" th:value="*{UserAge}">
@@ -22,7 +22,7 @@
 	</form>
 </div>
 
-<p><a href="#" th:href="@{/}">戻る</a></p>
+<p><a href="#" class="btn btn-link" th:href="@{/}">戻る</a></p>
 
 </body>
 </html>

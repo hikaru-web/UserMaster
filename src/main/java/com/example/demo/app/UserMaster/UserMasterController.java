@@ -101,12 +101,6 @@ public class UserMasterController{
 					BindingResult results,
 					Model model) {
 
-		//同じ名前のユーザーが登録されていたらエラー
-//		if (userService.findOneByName(userForm.getUserName()) !=null) {
-//			model.addAttribute("title","同名のユーザーが存在します");
-//			return"userMaster/UserTouroku";
-//		}
-
 		if (results.hasErrors()) {
 			model.addAttribute("title","エラーだ！");
 			return"userMaster/UserTouroku";
@@ -159,7 +153,7 @@ public class UserMasterController{
 		//このフラッシュスコープを簡単に実現するための仕組みがaddFlashAttribute
 		redirectAttributes.addFlashAttribute("complete","Registered!");
 
-		return "redirect:/UserMaster/UserTouroku";
+		return "redirect:/";
 	}
 
 	/**
@@ -198,6 +192,43 @@ public class UserMasterController{
 
 	}
 
+	/**
+	 * 明細画面を表示する。
+	 * @param userForm
+	 * @param UserId
+	 * @param result
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("/details/{UserId}")
+	public String BackDetails(
+			@ModelAttribute UserForm userForm,
+			@PathVariable Long UserId,
+			BindingResult result,
+			Model model) {
+
+		if (result.hasErrors()) {
+			return "/index";
+		}
+
+    	Optional<User> userOpt = userService.findOne(UserId);
+    	Optional<UserForm> userFormOpt = userOpt.map(t ->makeUserForm(t));
+
+    	if (userFormOpt.isPresent()) {
+			userForm = userFormOpt.get();
+		} else {
+
+			return "/index";
+		}
+
+    	model.addAttribute("userForm", userForm);
+
+    	return "UserMaster/UserSyousai";
+
+
+	}
+
+
     /**
      * UserIdに紐づく登録情報を取得し、編集可能な状態で表示する。
      * @param userForm
@@ -207,7 +238,7 @@ public class UserMasterController{
      * @param redirectAttributes
      * @return
      */
-    @GetMapping("/{UserId}")
+    @PostMapping("/update/{UserId}")
     public String showUpdate(
     	@ModelAttribute UserForm userForm,
     	//Postでhiddenで渡されてきたものはRequestParamで受け取る
@@ -270,6 +301,26 @@ public class UserMasterController{
             return "/index";
         }
 
+    }
+
+
+    /**
+     * ユーザーidを取得し、一件のデータ削除
+     * @param id
+     * @param model
+     * @return
+     */
+    @PostMapping("/delete")
+    public String delete(
+    	//リクエストパラメータはStringとして取得するが、
+    	//@RequestParam{""}int idとしておくことで、
+    	//自動的にintに変換される
+    	@RequestParam("UserId") Long userId,
+    	Model model) {
+
+    	userService.delete(userId);
+
+        return "redirect:/";
     }
 
 	private Map<String,String> getRadioItems(){
