@@ -35,7 +35,11 @@
 	<button type="submit" class="btn btn-primary">確認する</button>
 </form>
 
-<p><a href="#" th:href="@{/}">戻る</a></p>
+<form method="post" action="#" th:action="@{/details/{UserId}(UserId=${UserId})}">
+	<input type="hidden" name="name" th:value="*{UserId}">
+	<button type="submit" class="btn btn-primary">戻る</button>
+</form>
+
 </main>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="js/jquery-3.5.0.slim.min.js"></script>

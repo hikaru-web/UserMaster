@@ -192,6 +192,43 @@ public class UserMasterController{
 
 	}
 
+	/**
+	 * 明細画面を表示する。
+	 * @param userForm
+	 * @param UserId
+	 * @param result
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("/details/{UserId}")
+	public String BackDetails(
+			@ModelAttribute UserForm userForm,
+			@PathVariable Long UserId,
+			BindingResult result,
+			Model model) {
+
+		if (result.hasErrors()) {
+			return "/index";
+		}
+
+    	Optional<User> userOpt = userService.findOne(UserId);
+    	Optional<UserForm> userFormOpt = userOpt.map(t ->makeUserForm(t));
+
+    	if (userFormOpt.isPresent()) {
+			userForm = userFormOpt.get();
+		} else {
+
+			return "/index";
+		}
+
+    	model.addAttribute("userForm", userForm);
+
+    	return "UserMaster/UserSyousai";
+
+
+	}
+
+
     /**
      * UserIdに紐づく登録情報を取得し、編集可能な状態で表示する。
      * @param userForm
