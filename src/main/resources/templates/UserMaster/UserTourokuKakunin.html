@@ -2,8 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
+   <div th:replace="~{block/header_boot::headerA_boot}"></div>
+    <main role="main" class="container">
 <h1 th:text="${title}">ユーザー登録</h1>
 
 <p>入力内容をご確認ください</p>
@@ -13,6 +20,14 @@
 	<P th:text="*{UserAge}"></P>
 	<P th:text="*{UserBirthDay}"></P>
 	<P th:text="*{contents}"></P>
+		<form method="post" action="#" th:action="@{/complete}">
+		<input type="hidden" name="UserName" th:value="*{UserName}">
+		<input type="hidden" name="UserAge" th:value="*{UserAge}">
+		<input type="hidden" name="UserSex" th:value="*{UserSex}">
+		<input type="hidden" name="UserBirthDay" th:value="*{UserBirthDay}">
+		<input type="hidden" name="contents" th:value="*{contents}">
+		<input type="submit" class="btn btn-primary" value="完了">
+	</form><br>
 	<form method="post" action="#" th:action="@{/UserTouroku}">
 		<input type="hidden" name="UserName" th:value="*{UserName}">
 		<input type="hidden" name="UserAge" th:value="*{UserAge}">
@@ -21,16 +36,11 @@
 		<input type="hidden" name="contents" th:value="*{contents}">
 		<input type="submit" value="戻る">
 	</form>
-	<form method="post" action="#" th:action="@{/complete}">
-		<input type="hidden" name="UserName" th:value="*{UserName}">
-		<input type="hidden" name="UserAge" th:value="*{UserAge}">
-		<input type="hidden" name="UserSex" th:value="*{UserSex}">
-		<input type="hidden" name="UserBirthDay" th:value="*{UserBirthDay}">
-		<input type="hidden" name="contents" th:value="*{contents}">
-		<input type="submit" value="complete">
-	</form>
+
 </div>
-
-
+</main>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="js/jquery-3.5.0.slim.min.js"></script>
+<script src="js/bootstrap.bundle.min.js" ></script>
 </body>
 </html>
