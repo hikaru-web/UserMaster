@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/bootstrap.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -11,38 +11,57 @@
 <body>
    <div th:replace="~{block/header_boot::headerA_boot}"></div>
     <main role="main" class="container">
+    <br><br><br>
 <h1 th:text="${title}">登録情報の編集</h1>
 
-<form method="post" action="#" th:action="@{/UpdateConfirm}" th:object="${userForm}">
-    <label for="UserName">お名前:</label>
-    <input id="UserName" name="UserName" type="text" th:value="*{UserName}"><br>
-	<div th:if="${#fields.hasErrors('UserName')}" th:errors="*{UserName}"></div>
-
-    <label for="UserAge">年齢:</label>
-    <input id="UserAge" name="UserAge" type="text" th:value="*{UserAge}"><br>
-	<div th:if="${#fields.hasErrors('UserAge')}" th:errors="*{UserAge}"></div>
-
-	<label>生年月日：</label>
-	<input type="date" name="UserBirthDay" th:value="*{UserBirthDay}" /><br>
-	<div th:if="${#fields.hasErrors('UserBirthDay')}" th:errors="*{UserBirthDay}"></div>
-
-	<label for="contents">自己PR　:</label>
-	<textarea name="contents" id="contents" rows="3" cols="40" th:field="*{contents}"></textarea><br>
-	<div th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}"></div>
-
-	<input   th:if="${UserId}" type="hidden" name="UserId" th:value="${UserId}">
-
-	<button type="submit" class="btn btn-primary">確認する</button>
+<form method="post" action="#" th:action="@{/UserTourokuKakunin}" th:object="${userForm}">
+	<div class="form-group row">
+		<div class="col-sm-3"></div>
+   		<label for="UserName"class="col-sm-1 col-form-label">お名前:</label>
+   		<div class="col-sm-5">
+			<input id="UserName"  placeholder="田中太郎"  class="form-control" name="UserName" type="text" th:value="*{UserName}" size="30"><br>
+		</div>
+		<div th:if="${#fields.hasErrors('UserName')}" th:errors="*{UserName}"></div>
+	</div>
+	<div class="form-group row">
+		<div class="col-sm-3"></div>
+	    <label for="UserAge" class="col-sm-1 col-form-label">年齢:</label>
+	    <div class="col-sm-5">
+		    <input id="UserAge"  placeholder="18" class="form-control" name="UserAge" type="text" th:value="*{UserAge}"size="30"><br>
+	    </div>
+		<div th:if="${#fields.hasErrors('UserAge')}" th:errors="*{UserAge}"></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3"></div>
+		<label for="UserBirthDay" class="col-md-1 col-form-label">誕生日：</label>
+	    <div class="col-sm-5">
+			<input type="date" name="UserBirthDay" id="UserBirthDay"  class="form-control" th:value="*{UserBirthDay}" size="40"/><br>
+			<div th:if="${#fields.hasErrors('UserBirthDay')}" th:errors="*{UserBirthDay}"></div><br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<label for="contents" class="col-md-2 col-form-label">自己PR　:</label>
+		<div class="col-sm-5">
+			<textarea name="contents" id="contents" rows="3" class="form-control"  cols="40" th:field="*{contents}"></textarea><br>
+		</div>
+		<div th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}"></div><br>
+	</div>
+	<div class="text-center">
+		<button type="submit" class="btn btn-primary">確認する</button>
+	</div>
 </form>
-
-<form method="post" action="#" th:action="@{/details/{UserId}(UserId=${UserId})}">
-	<input type="hidden" name="name" th:value="*{UserId}">
-	<button type="submit" class="btn btn-primary">戻る</button>
-</form>
+<br>
+<div align="center">
+	<form method="post" action="#" th:action="@{/{UserId}(UserId=${UserId})}">
+		<input type="hidden" name="name" th:value="*{UserId}">
+		<button type="submit" class="btn btn-link">戻る</button>
+	</form>
+</div>
 
 </main>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="js/jquery-3.5.0.slim.min.js"></script>
-<script src="js/bootstrap.bundle.min.js" ></script>
+<script src="../js/jquery-slim.min.js"></script>
+<script src="../js/bootstrap.min.js" ></script>
 </body>
 </html>

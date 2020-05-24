@@ -2,23 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<title th:text="${title}">Insert title here</title>
 </head>
 <body>
    <div th:replace="~{block/header_boot::headerA_boot}"></div>
     <main role="main" class="container">
-<h1 th:text="${title}">ユーザー登録</h1>
+
+<h1 th:text="${title}">ユーザー登録</h1><br><br><br>
 
 <div class="center-block">
+	<h1>ユーザー情報</h1>
 	<div th:object="${userForm}">
-		<P th:text="*{UserName}"></P>
-		<P th:text="*{UserAge}"></P>
-		<P th:text="*{UserBirthDay}"></P>
-		<P th:text="*{contents}"></P>
+		<div class="mb-5">
+			<ul class="list-group" style="max-width: 400px;">
+			  <li th:text="*{UserName}"class="list-group-item">Dapibus ac facilisis in</li>
+			  <li th:text="*{UserAge}"class="list-group-item">Morbi leo risus</li>
+			  <li th:text="*{UserBirthDay}"class="list-group-item">Porta ac consectetur ac</li>
+			  <li th:text="*{contents}"class="list-group-item">Porta ac consectetur ac</li>
+			</ul>
+		</div>
 		<form method="post" action="#" th:action="@{/update/{UserId}(UserId=${UserId})}">
 			<input type="hidden" name="UserId" th:value="*{UserId}">
 			<input type="hidden" name="UserName" th:value="*{UserName}">
@@ -33,7 +40,7 @@
 <p><a href="#" class="btn btn-link" th:href="@{/}">戻る</a></p>
 </main>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="js/jquery-3.5.0.slim.min.js"></script>
-<script src="js/bootstrap.bundle.min.js" ></script>
+<script src="js/jquery-slim.min.js"></script>
+<script src="js/bootstrap.min.js" ></script>
 </body>
 </html>
