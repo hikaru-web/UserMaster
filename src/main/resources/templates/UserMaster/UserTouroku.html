@@ -19,7 +19,9 @@
 <br>
 <h1 >ユーザー登録</h1>
 <br>
+
 <form method="post" action="#" th:action="@{/UserTourokuKakunin}" th:object="${userForm}">
+
 	<div class="form-group row">
 		<div class="col-sm-3"></div>
    		<label for="UserName"class="col-sm-1 col-form-label">お名前:</label>
@@ -40,6 +42,35 @@
 	    	<div class="text-danger mb-4"  th:if="${#fields.hasErrors('UserAge')}" th:errors="*{UserAge}"></div>
 	    </div>
 	</div>
+</form>
+<form class="form-inline" method="post" action="#" th:action="@{/UserTourokuKakunin}" th:object="${userForm}">
+	<div class="form-group row">
+		<div class="col-sm-1"></div>
+		<label for="selectYear"class="col-sm-2 col-form-label">誕生日:</label>
+		<div class="col-sm-2">
+		     <select class="form-control" id="selectYear" name="birthDayYear">
+		       <option value="">---</option>
+		       <option th:each="year : ${selectItemsYear}" th:value="${year.value}" th:text="${year.value}" th:selected="${year.value} == *{birthDayYear}">pulldown</option>
+		     </select>
+		 </div>
+		 <label for="selectYear"class="col-sm-1 col-form-label">年</label>
+		 <div class="col-sm-2">
+		     <select class="form-control" id="selectMonth" name="birthDayMonth">
+		       <option value="">---</option>
+		       <option th:each="month : ${selectItemsMonth}" th:value="${month.value}" th:text="${month.value}" th:selected="${month.value} == *{birthDayMonth}">pulldown</option>
+		     </select>
+		  </div>
+		  <label for="selectMonth"class="col-sm-1 col-form-label">月</label>
+		  <div class="col-sm-2">
+		     <select class="form-control" id="selectDay" name="birthDay">
+		       <option value="">---</option>
+		       <option th:each="day : ${selectItemsDay}" th:value="${day.value}" th:text="${day.value}" th:selected="${day.value} == *{birthDay}">pulldown</option>
+		     </select>
+		   </div>
+		   <label for="selectDay"class="col-sm-1 col-form-label">日</label>
+    </div>
+</form><br>
+<form method="post" action="#" th:action="@{/UserTourokuKakunin}" th:object="${userForm}">
 	<div class="row">
 		<div class="col-sm-3"></div>
 		<label for="UserBirthDay" class="col-md-1 col-form-label">誕生日：</label>
@@ -64,6 +95,8 @@
 
 </div>
 </main><!-- /.container -->
+<script type="text/javascript" src="js/birthday.js"></script>
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="js/jquery-slim.min.js"></script>
 <script src="js/bootstrap.min.js" ></script>
