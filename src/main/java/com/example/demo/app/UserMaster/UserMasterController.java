@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.demo.domain.User;
 import com.example.demo.helper.PagenationHelper;
 import com.example.demo.service.UserService;
+import com.example.demo.util.MapUtil;
 
 @Controller
 @RequestMapping("/")
@@ -72,6 +73,10 @@ public class UserMasterController{
 			Model model,
 			@ModelAttribute("complete")String complete) {
 		model.addAttribute("title", "プロフィール登録");
+
+		model.addAttribute("selectItemsYear",MapUtil.SELECT_ITEMS_YEAR);
+		model.addAttribute("selectItemsMonth", MapUtil.SELECT_ITEMS_MONTH);
+		model.addAttribute("selectItemsDay", MapUtil.SELECT_ITEMS_DAY);
 	    model.addAttribute("radioItems",getRadioItems());
 		return "UserMaster/UserTouroku";
 	}

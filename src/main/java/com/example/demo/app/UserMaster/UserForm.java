@@ -19,8 +19,16 @@ public class UserForm {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Past(message="日付が未来に設定されています。")
 	public LocalDate UserBirthDay;
+
+	@NotNull(message="誕生年を選択してください")
+	public String birthDayYear;
+	@NotNull(message="誕生月を選択してください")
+	public String birthDayMonth;
+	@NotNull(message="誕生日を選択してください")
+	public String birthDay;
 	@NotNull(message="年齢を入力してください")
 	public String UserAge;
+	@NotNull
 	public String UserSex;
 	public String selectedRadio;
 
@@ -36,11 +44,19 @@ public class UserForm {
 			String UserName,
 			String contents,
 			LocalDate UserBirthDay,
-			String UserAge, String UserSex, String selectedRadio) {
+			String BirthDayYear,
+			String BirthDayMonth,
+			String BirthDay,
+			String UserAge,
+			String UserSex,
+			String selectedRadio) {
 		this.UserId = UserId;
 		this.UserName = UserName;
 		this.contents = contents;
 		this.UserBirthDay = UserBirthDay;
+		this.birthDayYear = BirthDayYear;
+		this.birthDayMonth = BirthDayMonth;
+		this.birthDay = BirthDay;
 		this.UserAge = UserAge;
 		this.UserSex = UserSex;
 		this.selectedRadio = selectedRadio;
@@ -72,6 +88,29 @@ public class UserForm {
 
 	public LocalDate getUserBirthDay() {
 		return UserBirthDay;
+	}
+
+	public String getBirthDayYear() {
+		return birthDayYear;
+	}
+	public void setBirthDayYear(String birthDayYear) {
+		this.birthDayYear = birthDayYear;
+	}
+
+	public String getBirthDayMonth() {
+		return birthDayMonth;
+	}
+
+	public void setBirthDayMonth(String birthDayMonth) {
+		this.birthDayMonth = birthDayMonth;
+	}
+
+	public String getBirthDay() {
+		return birthDay;
+	}
+
+	public void setBirthDay(String birthDay) {
+		this.birthDay = birthDay;
 	}
 
 	public void setUserBirthDay(LocalDate userBirthDay) {
