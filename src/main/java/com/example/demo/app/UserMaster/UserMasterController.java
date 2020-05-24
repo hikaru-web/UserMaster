@@ -164,7 +164,7 @@ public class UserMasterController{
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/details/{UserId}")
+	@GetMapping("/{UserId}")
 	public String showDetails(
 			@ModelAttribute UserForm userForm,
 			@PathVariable Long UserId,
@@ -200,7 +200,7 @@ public class UserMasterController{
 	 * @param model
 	 * @return
 	 */
-	@PostMapping("/details/{UserId}")
+	@PostMapping("/{UserId}")
 	public String BackDetails(
 			@ModelAttribute UserForm userForm,
 			@PathVariable Long UserId,
@@ -224,10 +224,7 @@ public class UserMasterController{
     	model.addAttribute("userForm", userForm);
 
     	return "UserMaster/UserSyousai";
-
-
 	}
-
 
     /**
      * UserIdに紐づく登録情報を取得し、編集可能な状態で表示する。

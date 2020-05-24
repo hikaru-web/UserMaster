@@ -11,7 +11,14 @@
 </head>
 <body>
 <h1 th:text="${title}">title</h1>
-<p><a href="#" th:href="@{/UserTouroku}" class="btn btn-primary">ユーザーを登録する</a></p>
+<br>
+<div class="row">
+	<div class="col-sm-9"></div>
+	<div class="col-sm-2">
+		<p><a href="#" th:href="@{/UserTouroku}" class="btn btn-primary">ユーザーを登録する</a></p>
+	</div>
+	<div class="col-sm-1"></div>
+</div>
 </body>
 
     <div th:replace="~{block/header_boot::headerA_boot}"></div>
@@ -32,7 +39,7 @@
 		<td th:text=${obj.UserBirthDay}></td>
 														<!--リンク先の{id}は後から値を書き換えられる  -->
 														<!-- 置き換える値は(id=置き換える値)で指定 -->
-		<td><a type="button" th:href="@{/details/{UserId}(UserId=${obj.UserId})}">明細</a></td>
+		<td><a type="button" th:href="@{/{UserId}(UserId=${obj.UserId})}">明細</a></td>
 		<td>
 			<form method="POST" th:action="@{/delete}">
 			<input type="hidden" name="UserId" th:value="${obj.UserId}">

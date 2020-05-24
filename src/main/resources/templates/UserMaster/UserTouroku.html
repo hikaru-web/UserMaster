@@ -12,36 +12,60 @@
    <div th:replace="~{block/header_boot::headerA_boot}"></div>
     <main role="main" class="container">
 
-<h1 th:text="${title}">ユーザー登録</h1>
+
+<div align="center">
 <br>
- <div class="center-block">
+<br>
+<br>
+<h1 >ユーザー登録</h1>
+<br>
 <form method="post" action="#" th:action="@{/UserTourokuKakunin}" th:object="${userForm}">
-	<div class="form-group">
-	    <label for="UserName">お名前:</label><br>
-	    <input id="UserName"  placeholder="田中太郎" name="UserName" type="text" th:value="*{UserName}"><br>
-		<div th:if="${#fields.hasErrors('UserName')}" th:errors="*{UserName}"></div>
+	<div class="form-group row">
+		<div class="col-sm-3"></div>
+   		<label for="UserName"class="col-sm-1 col-form-label">お名前:</label>
+   		<div class="col-sm-4">
+			<input id="UserName"  placeholder="田中太郎"  class="form-control" name="UserName" type="text" th:value="*{UserName}" size="30">
+		</div>
+		<div class="col-sm-4">
+			<div class="text-danger mb-4"  th:if="${#fields.hasErrors('UserName')}" th:errors="*{UserName}"></div>
+		</div>
 	</div>
-	<div class="form-group">
-	    <label for="UserAge">年齢:</label><br>
-	    <input id="UserAge"  placeholder="18" name="UserAge" type="text" th:value="*{UserAge}"><br>
-		<div th:if="${#fields.hasErrors('UserAge')}" th:errors="*{UserAge}"></div>
+	<div class="form-group row">
+		<div class="col-sm-3"></div>
+	    <label for="UserAge" class="col-sm-1 col-form-label">年齢:</label>
+	    <div class="col-sm-4">
+		    <input id="UserAge"  placeholder="18" class="form-control" name="UserAge" type="text" th:value="*{UserAge}"size="30">
+	    </div>
+	    <div class="col-sm-4">
+	    	<div class="text-danger mb-4"  th:if="${#fields.hasErrors('UserAge')}" th:errors="*{UserAge}"></div>
+	    </div>
 	</div>
-	<label>生年月日：</label><br>
-	<input type="date" name="UserBirthDay" th:value="*{UserBirthDay}" /><br>
-	<div th:if="${#fields.hasErrors('UserBirthDay')}" th:errors="*{UserBirthDay}"></div><br>
-
-	<label for="contents">自己PR　:</label><br>
-	<textarea name="contents" id="contents" rows="3" cols="40" th:field="*{contents}"></textarea><br>
-	<div th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}"></div>
+	<div class="row">
+		<div class="col-sm-3"></div>
+		<label for="UserBirthDay" class="col-md-1 col-form-label">誕生日：</label>
+	    <div class="col-sm-4">
+			<input type="date" name="UserBirthDay" id="UserBirthDay"  class="form-control" th:value="*{UserBirthDay}" size="40"/><br>
+		</div>
+		<div class="col-sm-4">
+			<div class="text-danger mb-4"  th:if="${#fields.hasErrors('UserBirthDay')}" th:errors="*{UserBirthDay}"></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<label for="contents" class="col-md-2 col-form-label">自己PR　:</label>
+		<div class="col-sm-4">
+			<textarea name="contents" id="contents" rows="3" class="form-control"  cols="40" th:field="*{contents}"></textarea><br>
+		</div>
+		<div class="text-danger mb-4" th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}"></div><br>
+	</div>
 	<button type="submit" class="btn btn-primary">確認する</button>
-
 </form>
-<p><a href="#" th:href="@{/}">戻る</a></p>
+<br><p><a href="#" th:href="@{/}">戻る</a></p>
 
 </div>
 </main><!-- /.container -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="js/jquery-3.5.0.slim.min.js"></script>
-<script src="js/bootstrap.bundle.min.js" ></script>
+<script src="js/jquery-slim.min.js"></script>
+<script src="js/bootstrap.min.js" ></script>
 </body>
 </html>
