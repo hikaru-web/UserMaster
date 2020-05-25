@@ -14,10 +14,9 @@ public class MapUtil {
 	    {
 	    	Calendar calendar = Calendar.getInstance();
 	    	int thisYear = calendar.get(Calendar.YEAR);
-	    	int startYear = thisYear - 100;
 
-	    	for (Integer i = 0; i < 99; i++) {
-	    		Integer year =startYear + i + 1;
+	    	for (Integer i = 0; i < 100; i++) {
+	    		Integer year = thisYear - ( i +1) ;
 				put(i.toString(),year.toString());
 			};
 	    }
