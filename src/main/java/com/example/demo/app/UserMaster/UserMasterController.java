@@ -107,7 +107,10 @@ public class UserMasterController{
 					Model model) {
 
 		if (results.hasErrors()) {
-			model.addAttribute("title","エラーだ！");
+			model.addAttribute("title","Error");
+			model.addAttribute("selectItemsYear",MapUtil.SELECT_ITEMS_YEAR);
+			model.addAttribute("selectItemsMonth", MapUtil.SELECT_ITEMS_MONTH);
+			model.addAttribute("selectItemsDay", MapUtil.SELECT_ITEMS_DAY);
 			return"userMaster/UserTouroku";
 		}
 
