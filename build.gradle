@@ -37,6 +37,11 @@ dependencies {
 	}
 }
 
+jar {
+  baseName = 'UserMaster'
+  version = '0.0.1'
+}
+
 task stage{
 	dependsOn build
 }
