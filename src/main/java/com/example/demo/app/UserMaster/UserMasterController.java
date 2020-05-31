@@ -1,6 +1,7 @@
 package com.example.demo.app.UserMaster;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.demo.domain.User;
 import com.example.demo.helper.PagenationHelper;
 import com.example.demo.service.UserService;
+import com.example.demo.util.CalendarUtil;
 import com.example.demo.util.MapUtil;
 
 @Controller
@@ -145,11 +147,18 @@ public class UserMasterController{
 
 		User user = new User();
 
+		//誕生日を結合する
+		int birthDayYear = Integer.parseInt(userForm.getBirthDayYear());
+		int birthDayMonth = Integer.parseInt(userForm.getBirthDayMonth());
+		int birthDay = Integer.parseInt(userForm.getBirthDay());
+		LocalDate userBirthDay = LocalDate.of(birthDayYear, birthDayMonth, birthDay);
+
+		//エンティティにフォームの値を詰め込む
 		user.setUserName(userForm.getUserName());
 		user.setUserAge(Long.parseLong(userForm.getUserAge()));
 		user.setContents(userForm.getContents());
 		user.setUserSex(userForm.getUserSex());
-		user.setUserBirthDay(userForm.getUserBirthDay());
+		user.setUserBirthDay(userBirthDay);
 		user.setContents(userForm.getContents());
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		user.setCreateTime(timestamp);
@@ -192,9 +201,11 @@ public class UserMasterController{
     	if (userFormOpt.isPresent()) {
 			userForm = userFormOpt.get();
 		} else {
-
 			return "/index";
 		}
+
+    	//誕生日をセットします
+    	userForm.setUserBirthDayForNenGappi(CalendarUtil.LocalDateTimeToNenGappi(userForm.getUserBirthDay()));
 
     	model.addAttribute("userForm", userForm);
 

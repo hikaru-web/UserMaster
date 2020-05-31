@@ -10,7 +10,8 @@
 <title th:text="${title}">Insert title here</title>
 </head>
 <body>
-<h1 th:text="${title}">title</h1>
+<br><br>
+<h1 th:text="${alart}" class="text-danger">title</h1>
 <br>
 <div class="row">
 	<div class="col-sm-9"></div>
@@ -20,7 +21,7 @@
 	<div class="col-sm-1"></div>
 </div>
 </body>
-
+<h1 th:text="${alart}" class="text-danger">title</h1>
     <div th:replace="~{block/header_boot::headerA_boot}"></div>
     <main role="main" class="container">
 
