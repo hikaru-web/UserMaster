@@ -6,30 +6,25 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import com.example.demo.app.UserMaster.UserForm;
 import com.example.demo.domain.User;
-import com.example.demo.mapper.UserMapper;
-import com.example.demo.service.UserService;
 
 //↓JUnit5にMockitoという拡張機能を統合する。
 @ExtendWith(MockitoExtension.class)
 @DisplayName("UserServiceの単体テスト")
 class UserServiceUnitTest {
 
-	@Mock
-	private UserMapper userMapper;
+//	@Mock
+//	private UserMapper userMapper;
 
-	@Mock
-	private Pageable pageable;
+//	@Mock
+//	private Pageable pageable;
 
-	@InjectMocks
-	private UserService userService;
+//	@InjectMocks
+//	private UserService userService;
 
 
 
@@ -62,7 +57,7 @@ class UserServiceUnitTest {
 //		when(userMapper.findAll(userForm)).thenReturn(list);
 
 		// 実際に全件取得してactualListにつめる
-		Page<User> actualList = userService.findAll(userForm,pageable);
+//		Page<User> actualList = userService.findAll(userForm,pageable);
 
 		//userMapperのfindAllは1回だけ実行されるはずだ
 //		verify(userMapper,times(1)).findAll(userForm);
