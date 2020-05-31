@@ -91,6 +91,9 @@ public class UserMasterController{
 	public String UserTourokuBack(UserForm userForm,
 			Model model) {
 		model.addAttribute("title", "プロフィール登録");
+		model.addAttribute("selectItemsYear",MapUtil.SELECT_ITEMS_YEAR);
+		model.addAttribute("selectItemsMonth", MapUtil.SELECT_ITEMS_MONTH);
+		model.addAttribute("selectItemsDay", MapUtil.SELECT_ITEMS_DAY);
 		return "UserMaster/UserTouroku";
 	}
 

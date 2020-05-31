@@ -41,14 +41,11 @@
 	    <div class="col-sm-4">
 	    	<div class="text-danger mb-4"  th:if="${#fields.hasErrors('UserAge')}" th:errors="*{UserAge}"></div>
 	    </div>
-	</div>
-</form>
-<form class="form-inline" method="post" action="#" th:action="@{/UserTourokuKakunin}" th:object="${userForm}">
-	<div class="form-group row">
+
 		<div class="col-sm-1"></div>
 		<label for="selectYear"class="col-sm-2 col-form-label">誕生日:</label>
 		<div class="col-sm-2">
-		     <select class="form-control" id="selectYear" name="birthDayYear">
+		     <select class="form-control" id="selectYear" name="birthDayYear" >
 		       <option value="">---</option>
 		       <option th:each="year : ${selectItemsYear}" th:value="${year.value}" th:text="${year.value}"
 		       			th:selected="${year.value}== *{birthDayYear}">pulldown</option>
@@ -72,20 +69,6 @@
 		     <div class="text-danger mb-4"  th:if="${#fields.hasErrors('birthDay')}" th:errors="*{birthDay}"></div>
 		   </div>
 		   <label for="selectDay"class="col-sm-1 col-form-label">日</label>
-    </div>
-</form><br>
-<form method="post" action="#" th:action="@{/UserTourokuKakunin}" th:object="${userForm}">
-	<div class="row">
-		<div class="col-sm-3"></div>
-		<label for="UserBirthDay" class="col-md-1 col-form-label">誕生日：</label>
-	    <div class="col-sm-4">
-			<input type="date" name="UserBirthDay" id="UserBirthDay"  class="form-control" th:value="*{UserBirthDay}" size="40"/><br>
-		</div>
-		<div class="col-sm-4">
-			<div class="text-danger mb-4"  th:if="${#fields.hasErrors('UserBirthDay')}" th:errors="*{UserBirthDay}"></div>
-		</div>
-	</div>
-	<div class="row">
 		<div class="col-sm-2"></div>
 		<label for="contents" class="col-md-2 col-form-label">自己PR　:</label>
 		<div class="col-sm-4">

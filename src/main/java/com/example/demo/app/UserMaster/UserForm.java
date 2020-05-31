@@ -15,7 +15,6 @@ public class UserForm {
 	@NotNull
 	@Size(max=200,message="200字以下で入力してください。")
 	public String contents;
-	@NotNull(message="誕生日を入力してください")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Past(message="日付が未来に設定されています。")
 	public LocalDate UserBirthDay;
@@ -28,7 +27,6 @@ public class UserForm {
 	public String birthDay;
 	@NotNull(message="年齢を入力してください")
 	public String UserAge;
-	@NotNull
 	public String UserSex;
 	public String selectedRadio;
 
