@@ -1,1 +1,1 @@
-web:java-Dserver.port=$PORT$JAVA_OPTS-jar build/libs/gradle-wrapper.jar
+web:java-Dserver.port=$PORT$JAVA_OPTS-jar build/libs/UserMaster-0.0.1.jar
